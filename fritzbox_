@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# --- config ---
+HOSTNAME="fritz.box"
+PASSWORD="*****"
+# --- /config ---
+
+TRAFFIC="${0##*fritzbox_}"
+
+sid() {
+	CHALLENGE="`curl -s "http://$HOSTNAME/cgi-bin/webcm?getpage=../html/login_sid.xml" | awk -F '[<>]' '/Challenge/{print $3}' | tr -d '\n'`"
+	RESPONSE="`printf "$CHALLENGE-$PASSWORD" | iconv -t UTF16LE | md5sum | awk '{print $1}'`"
+	curl -s "http://$HOSTNAME/cgi-bin/webcm" -d "login:command/response=$CHALLENGE-$RESPONSE&getpage=../html/login_sid.xml" | awk -F '[<>]' '/SID/{print $3}' | tr -d '\n'
+}
+
+values() {
+	curl -s "http://$HOSTNAME/cgi-bin/webcm?sid=$1&getpage=../html/de/menus/menu2.html&errorpage=../html/de/menus/menu2.html&var:pagename=inetstat&var:errorpagename=inetstat&var:menu=internet&var:pagemaster=&var:activtype=pppoe&var:tabInetstat=2&var:weckernr=&logger:settings/filter=1" | grep "^var inh\|^var inl\|^var outh\|^var outl" | awk -F '[ =;]' '{print $5}'
+}
+
+if [ "$1" = "config" ]; then
+	case "$TRAFFIC" in
+		down|up)
+			printf "graph_title Traffic $TRAFFIC\n"
+			printf "graph_vlabel $TRAFFIC\n"
+			printf "$TRAFFIC.label $TRAFFIC\n"
+			;;
+
+		*)
+			cat <<'END'
+graph_title Traffic down/up
+graph_order down up
+graph_vlabel down (-) / up (+)
+up.label traffic
+down.graph no
+up.negative down
+END
+			;;
+	esac
+
+	printf "graph_args --base 1024\n"
+	printf "graph_category fritzbox\n"
+
+	exit 0
+fi
+
+SID=$(sid)
+VALUES=($(values "$SID"))
+
+DOWN=$((VALUES[0] * 4294967296 + VALUES[1]))
+UP=$((VALUES[2] * 4294967296 + VALUES[3]))
+
+case "$TRAFFIC" in
+	down)
+		printf "down.value $DOWN\n"
+		;;
+
+	up)
+		printf "up.value $UP\n"
+		;;
+
+	*)
+		printf "down.value $DOWN\n"
+		printf "up.value $UP\n"
+		;;
+esac
+
