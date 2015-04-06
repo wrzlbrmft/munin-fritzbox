@@ -26,7 +26,7 @@ To install the required software under Ubuntu or any other Debian-based Linux,
 simply run:
 
 ```
-apt-get install curl munin
+apt-get install curl munin munin-node
 ```
 
 Next, download *munin-fritzbox* either as a
