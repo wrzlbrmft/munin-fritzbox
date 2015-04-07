@@ -14,7 +14,7 @@ Technical Note:
 
 * A FRITZ!Box model running firmware version xx.04.74+ (FRITZ!OS is not yet
 supported)
-* ```/bin/bash```
+* `/bin/bash`
 * [cURL](http://curl.haxx.se/)
 * [iconv](https://www.gnu.org/software/libiconv/)
 * md5sum
@@ -39,9 +39,9 @@ git clone https://github.com/wrzlbrmft/munin-fritzbox.git
 
 ## Configuration
 
-*munin-fritzbox* consists of a single script file named ```fritzbox_```. To set
-the URL and password of your FRITZ!Box, edit the config section at the beginnign
-of the script:
+*munin-fritzbox* consists of a single script file named `fritzbox_`. To set the
+URL and password of your FRITZ!Box, edit the config section at the beginnign of
+the script:
 
 ```bash
 # --- config ---
@@ -57,7 +57,7 @@ The script can generate three different Munin graphs:
 * Both downloaded/uploaded traffic combined in one graph
 
 Munin plugins are activated by symlinking them from the plugins directory,
-usually located at ```/etc/munin/plugins```.
+usually located at `/etc/munin/plugins`.
 
 To activate the combined graph, symlink the script with its original file name:
 
@@ -66,7 +66,7 @@ cd /etc/munin/plugins
 ln -s /path/to/munin-fritzbox/fritzbox_
 ```
 
-To activate the download graph, create a symlink with ```down``` appended to the
+To activate the download graph, create a symlink with `down` appended to the
 file name:
 
 ```
@@ -74,8 +74,8 @@ cd /etc/munin/plugins
 ln -s /path/to/munin-fritzbox/fritzbox_ fritzbox_down
 ```
 
-To activate the upload graph, create a symlink with ```up``` appended to the
-file name:
+To activate the upload graph, create a symlink with `up` appended to the file
+name:
 
 ```
 cd /etc/munin/plugins
