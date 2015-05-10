@@ -3,10 +3,14 @@
 This [Munin](http://munin-monitoring.org/) plugin lets you monitor the daily web
 traffic of an [AVM FRITZ!Box](http://avm.de/produkte/fritzbox/) DSL router.
 
+<a href="https://raw.githubusercontent.com/wrzlbrmft/munin-fritzbox/master/screenshots/fritzbox_down-day.png" target="_blank"><img src="https://raw.githubusercontent.com/wrzlbrmft/munin-fritzbox/master/screenshots/fritzbox_down-day.png" width="300" border="0" /></a>
+&nbsp;
+<a href="https://raw.githubusercontent.com/wrzlbrmft/munin-fritzbox/master/screenshots/fritzbox_up-day.png" target="_blank"><img src="https://raw.githubusercontent.com/wrzlbrmft/munin-fritzbox/master/screenshots/fritzbox_up-day.png" width="300" border="0" /></a>
+
 **IMPORTANT NOTE:** I wrote this plugin for my FRITZ!Box Fon 7170, which runs
 the classic firmware version 29.04.81. Therefore, this plugin does not yet
 support FRITZ!Box models running FRITZ!OS. For more information see this AVM
-Technical Note: 
+Technical Note:
 [Session-IDs im FRITZ!Box Webinterface](http://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/AVM_Technical_Note_-_Session_ID.pdf)
 (PDF, German).
 
